@@ -9,17 +9,24 @@ package edu.uw.complexkotlin
 // the final string should look like FIZZBUZZFIZZFIZZBUZZFIZZFIZZBUZZ for 0..15.
 // store this lambda into 'fizzbuzz' so that the tests can call it
 //
-val fizzbuzz : (IntRange) -> String = { "" }
+val fizzbuzz : (IntRange) -> String = { IntRange ->
+    IntRange.map { num ->
+        when {
+            num % 3 == 0 && num % 5 == 0 -> "FIZZBUZZ"
+            num % 3 == 0 -> "FIZZ"
+            num % 5 == 0 -> "BUZZ"
+            else -> ""
+        }
+    }.fold ("") { acc, str -> acc + str }
+}
 
 // Example usage
-/*
-if (fizzbuzz(1..2) == "")
-    println("Success!")
-if (fizzbuzz(1..3) == "FIZZ")
-    println("Success!")
-if (fizzbuzz(1..5) == "FIZZBUZZ")
-    println("Success!")
-*/
+// if (fizzbuzz(1..2) == "")
+//     println("Success!")
+// if (fizzbuzz(1..3) == "FIZZ")
+//     println("Success!")
+// if (fizzbuzz(1..5) == "FIZZBUZZ")
+//     println("Success!")
 
 // This is a utility function for your use as you choose, and as an
 // example of an extension method
@@ -34,16 +41,25 @@ fun process(message: String, block: (String) -> String): String {
     return ">>> ${message}: {" + block(message) + "}"
 }
 // Create r1 as a lambda that calls process() with message "FOO" and a block that returns "BAR"
-val r1 = { }
+val r1 = { process("FOO") {"BAR"} }
 
 // Create r2 as a lambda that calls process() with message "FOO" and a block that upper-cases 
 // r2_message, and repeats it three times with no spaces: "WOOGAWOOGAWOOGA"
 val r2_message = "wooga"
-val r2 = { }
-
+val r2 = { process("FOO") {r2_message.repeat(3).toUpperCase()}}
 
 // write an enum-based state machine between talking and thinking
-enum class Philosopher { }
+enum class Philosopher { 
+    THINKING {
+        override fun signal() = TALKING
+        override fun toString() = "Deep thoughts...."
+    },
+    TALKING {
+        override fun signal() = THINKING
+        override fun toString() = "Allow me to suggest an idea..."
+    };
+    abstract fun signal(): Philosopher
+}
 
 // create an class "Command" that can be used as a function.
 // To do this, provide an "invoke()" function that takes a 
@@ -55,4 +71,8 @@ enum class Philosopher { }
 // val cmd = Command(": ")
 // val result = cmd("Hello!")
 // result should equal ": Hello!"
-class Command(val prompt: String) { }
+class Command(val prompt: String) { 
+    operator fun invoke(message: String) : String {
+        return "$prompt$message"
+    }
+}
