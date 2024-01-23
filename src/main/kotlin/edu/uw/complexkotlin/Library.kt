@@ -20,6 +20,21 @@ val fizzbuzz : (IntRange) -> String = { IntRange ->
     }.fold ("") { acc, str -> acc + str }
 }
 
+// Extra Credit #2 (DOH!)
+// Here I'm writing the fizzbuzzdoh function, where if the number is evenly divisible by 7, then DOH! and only DOH! is returned.
+// Ie. even if then number is divisible by 3 or 5, only DOH! is returned.
+val fizzbuzzdoh : (IntRange) -> String = { IntRange ->
+    IntRange.map { num ->
+        when {
+            num % 7 == 0 -> "DOH!"
+            num % 3 == 0 && num % 5 == 0 -> "FIZZBUZZ"
+            num % 3 == 0 -> "FIZZ"
+            num % 5 == 0 -> "BUZZ"
+            else -> ""
+        }
+    }.fold ("") { acc, str -> acc + str }
+}
+
 // Example usage
 // if (fizzbuzz(1..2) == "")
 //     println("Success!")
