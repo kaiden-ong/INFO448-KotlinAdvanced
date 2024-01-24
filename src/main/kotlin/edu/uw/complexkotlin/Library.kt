@@ -35,6 +35,23 @@ val fizzbuzzdoh : (IntRange) -> String = { IntRange ->
     }.fold ("") { acc, str -> acc + str }
 }
 
+// Extra Credit #3 (fizzbuzzgen):
+// Here I'm writing the fizzbuzzgen function, which returns a lambda which can solve fizzbuzz with any map with numbers mapped to Phrases
+// View Test Cases in the test file
+fun fizzbuzzgen(fizzbuzzMap: Map<Int, String>): (IntRange) -> String {
+    return { numbers ->
+        numbers.map { num ->
+            fizzbuzzMap.map { (divisor, phrase) ->
+                if (num % divisor == 0) {
+                    phrase
+                } else {
+                    ""
+                }
+            }
+        }.fold("") { acc, str -> acc + str.fold("") { accPhrase, phrase -> accPhrase + phrase}}
+    }
+}
+
 // Example usage
 // if (fizzbuzz(1..2) == "")
 //     println("Success!")
@@ -75,6 +92,12 @@ enum class Philosopher {
     };
     abstract fun signal(): Philosopher
 }
+
+/* Extra credit #4 & 5 (Seneca the Younger & Stoicism):
+Seneca the Younger was a Stoic philosopher in Ancient Rome, born 4 AD and lived until 65 AD.
+Stoicism is actually the school of philosophy that he is most commonly related with, which 
+is the practice of virtue in order to achieve happiness and good life (AKA eudaimonia).
+*/
 
 // create an class "Command" that can be used as a function.
 // To do this, provide an "invoke()" function that takes a 

@@ -51,6 +51,25 @@ class LibraryTest {
         assertEquals("FIZZBUZZFIZZDOH!FIZZBUZZFIZZDOH!FIZZBUZZFIZZBUZZDOH!", fizzbuzzdoh(1..21))
     }
 
+    // Extra Credit 3 (fizzbuzzgen) tests:
+    @Test fun fizzbuzzgenTestOne() {
+        val fizzbuzz = fizzbuzzgen(mapOf(3 to "FIZZ", 5 to "BUZZ"))
+        assertEquals("FIZZBUZZFIZZFIZZBUZZFIZZFIZZBUZZ", fizzbuzz(1..15))
+     }
+     @Test fun fizzbuzzgenTestTwo() {
+        val fizzbuzz = fizzbuzzgen(mapOf(2 to "FOO", 7 to "BAR"))
+        assertEquals("FOOFOOFOOBARFOOFOOFOOFOOBAR", fizzbuzz(1..14))
+     }
+     @Test fun fizzbuzzgenTestThree() {
+        val fizzbuzz = fizzbuzzgen(mapOf(4 to "ALPHA", 6 to "OMEGA"))
+        assertEquals("ALPHAOMEGAALPHAALPHAOMEGA", fizzbuzz(1..12))
+     }
+ 
+     @Test fun fizzbuzzgenToFifteen() {
+        val fizzbuzz = fizzbuzzgen(mapOf(3 to "FIZZ", 5 to "BUZZ"))
+        assertEquals("FIZZBUZZFIZZFIZZBUZZFIZZFIZZBUZZ", fizzbuzz(1..15))
+     }
+
     @Test fun r1Test() {
         assertEquals(">>> FOO: {BAR}", r1())
     }
